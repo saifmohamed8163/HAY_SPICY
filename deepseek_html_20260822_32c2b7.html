@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAY • SPICY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== خلفية النجوم ===== */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+            background: #0a0a0a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== قماش النجوم ===== */
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card {
+            background-color: rgba(13, 13, 13, 0.88);
+            backdrop-filter: blur(8px);
+            max-width: 400px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 32px 20px 24px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.03);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== اسم ينور ويطفي ===== */
+        .logo {
+            font-size: 34px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .logo .hay {
+            color: #ffffff;
+            font-style: italic;
+            font-weight: 700;
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+
+        .logo .spicy {
+            color: #d4af37;
+            font-style: italic;
+            font-weight: 700;
+            animation: glowPulseGold 2.5s ease-in-out infinite;
+        }
+
+        .logo .dot {
+            color: #d4af37;
+            margin: 0 4px;
+            animation: glowPulseGold 2.5s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+            50% { text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 60px rgba(255,255,255,0.4); }
+            100% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        }
+
+        @keyframes glowPulseGold {
+            0% { text-shadow: 0 0 10px rgba(212,175,55,0.1); }
+            50% { text-shadow: 0 0 30px rgba(212,175,55,0.9), 0 0 60px rgba(212,175,55,0.5), 0 0 90px rgba(212,175,55,0.2); }
+            100% { text-shadow: 0 0 10px rgba(212,175,55,0.1); }
+        }
+
+        .sub-headline {
+            color: #aaaaaa;
+            font-size: 13px;
+            font-weight: 300;
+            margin-top: 6px;
+        }
+
+        .sub-headline i {
+            color: #d4af37;
+            margin: 0 3px;
+        }
+
+        .divider-line {
+            width: 50px;
+            height: 2px;
+            background: #d4af37;
+            margin: 14px auto 18px;
+            border-radius: 4px;
+            opacity: 0.6;
+        }
+
+        .arabic-text {
+            color: #e0e0e0;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 2;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 4px;
+        }
+
+        .arabic-text .gold {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin: 14px 0 22px;
+        }
+
+        .social-icons a {
+            color: #aaaaaa;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        .social-icons .discord:hover {
+            color: #5865f2;
+        }
+
+        .social-icons .whatsapp:hover {
+            color: #25d366;
+        }
+
+        .social-icons .kick:hover {
+            color: #53fc18;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background-color: rgba(22, 22, 22, 0.9);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 18px;
+            margin: 10px 0;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1px solid #262626;
+            transition: all 0.25s ease;
+            width: 100%;
+        }
+
+        .btn i {
+            font-size: 20px;
+            width: 26px;
+            text-align: center;
+            color: #d4af37;
+        }
+
+        .btn:hover {
+            background-color: #222;
+            border-color: #d4af37;
+            transform: scale(1.01);
+        }
+
+        .btn-donation i {
+            color: #ff6b6b;
+        }
+
+        .btn-donation:hover {
+            border-color: #ff6b6b;
+        }
+
+        .btn-discord i {
+            color: #5865f2;
+        }
+
+        .btn-discord:hover {
+            border-color: #5865f2;
+        }
+
+        .btn-whatsapp i {
+            color: #25d366;
+        }
+
+        .btn-whatsapp:hover {
+            border-color: #25d366;
+        }
+
+        .btn-kick i {
+            color: #53fc18;
+        }
+
+        .btn-kick:hover {
+            border-color: #53fc18;
+        }
+
+        /* ===== التاغات - بتنور وتطفي ===== */
+        .tags-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+            margin: 16px 0 10px;
+        }
+
+        .tags-row span {
+            color: #d4af37;
+            font-size: 12px;
+            font-style: italic;
+            font-weight: 600;
+            background: #141414;
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            animation: glowPulseGold 2.5s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .tags-row span i {
+            color: #d4af37;
+            margin-right: 5px;
+            font-size: 11px;
+        }
+
+        .tags-row span:hover {
+            transform: scale(1.05);
+            border-color: #d4af37;
+        }
+
+        .footer-brand {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #181818;
+        }
+
+        .footer-brand .brand-name {
+            color: #d4af37;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .footer-brand .brand-name .hay-footer {
+            color: #ffffff;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .footer-brand .brand-name .spicy-footer {
+            color: #d4af37;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .footer-brand .brand-name .dot-footer {
+            color: #d4af37;
+            margin: 0 4px;
+        }
+
+        .footer-brand .brand-name i {
+            margin: 0 6px;
+            color: #d4af37;
+        }
+
+        .footer-link {
+            color: #777;
+            font-size: 13px;
+            font-weight: 300;
+            margin-top: 6px;
+            display: block;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #d4af37;
+        }
+
+        .footer-link i {
+            margin-right: 5px;
+        }
+
+        .footer-link .join-name {
+            color: #777;
+            font-size: 13px;
+            font-weight: 300;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .footer-link .join-name .hay-join,
+        .footer-link .join-name .spicy-join,
+        .footer-link .join-name .dot-join {
+            color: #777;
+            font-size: 13px;
+            font-weight: 300;
+            font-style: normal;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .footer-link .join-name .hay-join {
+            color: #777;
+        }
+
+        .footer-link .join-name .spicy-join {
+            color: #777;
+        }
+
+        .footer-link .join-name .dot-join {
+            color: #777;
+            margin: 0 4px;
+        }
+
+        .footer-links {
+            color: #444;
+            font-size: 10px;
+            margin-top: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-links a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 4px;
+        }
+
+        .footer-links a:hover {
+            color: #d4af37;
+        }
+
+        .crown-icon {
+            font-size: 32px;
+            color: #d4af37;
+            margin-bottom: 4px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== كانفاس النجوم ===== -->
+    <canvas id="stars-canvas"></canvas>
+
+    <div class="card">
+
+        <!-- ===== الهيدر ===== -->
+        <i class="fas fa-crown crown-icon"></i>
+        
+        <div class="logo">
+            <span class="hay">𝑯𝑨𝒀</span>
+            <span class="dot">•</span>
+            <span class="spicy">𝑺𝑷𝑰𝑪𝒀</span>
+        </div>
+
+        <div class="sub-headline">
+            <i class="fas fa-heart"></i> Follow Me To See All The Latest Games And More <i class="fas fa-heart"></i>
+        </div>
+        <div class="divider-line"></div>
+
+        <div class="arabic-text">
+            "ما أعظم أن تكون <span class="gold">غائباً حاضراً</span><br />
+            من أن تكون <span class="gold">حاضراً غائباً</span>"
+        </div>
+
+        <div class="social-icons">
+            <a href="https://discord.gg/BM3ArUVX9" class="discord" title="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://chat.whatsapp.com/LmtFJccxucADkv7AkzZHhU" class="whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://kick.com/1-steel" class="kick" title="Kick"><i class="fas fa-solid fa-k"></i></a>
+        </div>
+
+        <a href="https://ipn.eg/S/saifmohamed1312007/instapay/2tVHx2" class="btn btn-donation">
+            <i class="fas fa-hand-holding-heart"></i> الدونيشن
+        </a>
+
+        <a href="https://discord.gg/BM3ArUVX9" class="btn btn-discord">
+            <i class="fab fa-discord"></i> Discord Server 
+        </a>
+
+        <a href="https://chat.whatsapp.com/LmtFJccxucADkv7AkzZHhU" class="btn btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> جروب التقديم للكلان
+        </a>
+
+        <a href="https://kick.com/1-steel" class="btn btn-kick">
+            <i class="fas fa-solid fa-k"></i> Kick
+        </a>
+
+        <!-- ===== التاغات بتنور وتطفي ===== -->
+        <div class="tags-row">
+            <span><i class="fas fa-check-circle"></i> SPICY</span>
+            <span><i class="fas fa-users"></i> SPICY</span>
+            <span><i class="fas fa-gamepad"></i> Gaming</span>
+        </div>
+
+        <div class="footer-brand">
+            <div class="brand-name">
+                <i class="fas fa-star"></i>
+                <span class="hay-footer">𝑯𝑨𝒀</span>
+                <span class="dot-footer">•</span>
+                <span class="spicy-footer">𝑺𝑷𝑰𝑪𝒀</span>
+                <i class="fas fa-star"></i>
+            </div>
+
+            <a href="#" class="footer-link">
+                <i class="fas fa-tree"></i> Join 
+                <span class="join-name">
+                    <span class="hay-join">𝑯𝑨𝒀</span>
+                    <span class="dot-join">•</span>
+                    <span class="spicy-join">𝑺𝑷𝑰𝑪𝒀</span>
+                </span>
+                on Linktree today
+            </a>
+
+            <div class="footer-links">
+                <a href="#">Cookie Preferences</a> • 
+                <a href="#">Report</a> • 
+                <a href="#">Privacy</a><br />
+                <a href="#">Explore</a> • 
+                <a href="#">About this account</a> • 
+                <a href="#">More from Linktree</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // نجوم وشهب متحركة
+        // ============================================================
+
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let W, H;
+
+        function resizeCanvas() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // ===== النجوم الثابتة =====
+        const stars = [];
+        const NUM_STARS = 180;
+
+        for (let i = 0; i < NUM_STARS; i++) {
+            stars.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                radius: Math.random() * 1.4 + 0.4,
+                brightness: Math.random() * 0.8 + 0.2,
+                speed: Math.random() * 0.005 + 0.002,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+
+        // ===== الشهب =====
+        const meteors = [];
+
+        function createMeteor() {
+            return {
+                x: Math.random() * W * 0.8,
+                y: Math.random() * H * 0.3,
+                length: Math.random() * 120 + 60,
+                speed: Math.random() * 6 + 4,
+                angle: Math.PI / 4 + (Math.random() - 0.5) * 0.3,
+                life: 1,
+                decay: Math.random() * 0.008 + 0.004,
+                active: true
+            };
+        }
+
+        // نضيف شهب كل فترة
+        let meteorTimer = 0;
+
+        function drawStars(time) {
+            // خلفية شفافة
+            ctx.clearRect(0, 0, W, H);
+
+            // === رسم النجوم ===
+            for (const s of stars) {
+                const flicker = 0.6 + 0.4 * Math.sin(time * s.speed + s.phase);
+                const alpha = s.brightness * flicker;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.fill();
+
+                // توهج خفيف للنجوم الكبيرة
+                if (s.radius > 1) {
+                    ctx.shadowColor = `rgba(255, 255, 255, ${alpha * 0.3})`;
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            // === رسم الشهب ===
+            for (let i = meteors.length - 1; i >= 0; i--) {
+                const m = meteors[i];
+                if (!m.active) continue;
+
+                const dx = Math.cos(m.angle) * m.length;
+                const dy = Math.sin(m.angle) * m.length;
+
+                // تدرج من الأبيض إلى الشفاف
+                const gradient = ctx.createLinearGradient(m.x, m.y, m.x - dx, m.y - dy);
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${m.life * 0.9})`);
+                gradient.addColorStop(0.3, `rgba(255, 255, 255, ${m.life * 0.5})`);
+                gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                ctx.lineTo(m.x - dx, m.y - dy);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 1.8;
+                ctx.stroke();
+
+                // توهج الرأس
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, 2.5 * m.life, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${m.life * 0.8})`;
+                ctx.shadowColor = `rgba(200, 200, 255, ${m.life * 0.4})`;
+                ctx.shadowBlur = 18;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // تحريك الشهاب
+                m.x += Math.cos(m.angle) * m.speed;
+                m.y += Math.sin(m.angle) * m.speed;
+                m.life -= m.decay;
+
+                if (m.life <= 0 || m.x > W + 50 || m.y > H + 50) {
+                    m.active = false;
+                    meteors.splice(i, 1);
+                }
+            }
+
+            // === توليد شهب جديدة ===
+            meteorTimer++;
+            if (meteorTimer > 80 + Math.random() * 120) {
+                if (meteors.length < 5) {
+                    meteors.push(createMeteor());
+                }
+                meteorTimer = 0;
+            }
+
+            requestAnimationFrame(drawStars);
+        }
+
+        // نبدأ الحركة
+        requestAnimationFrame(drawStars);
+    </script>
+
+</body>
+</html>
